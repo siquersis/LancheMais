@@ -1,0 +1,83 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<LancheMais.WebApp.Models.Lanche>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listagem de Lanches</h1>
+<form method="get" class="form-inline">
+    <div class="row">
+        <div class="col-md-2">
+            <input name="filter" class="form-control" placeholder="Pesquisa" value="@Model.RouteValue["Filter"]" style="width:200px;" />&nbsp;
+        </div>
+        <div class="col-md-10">
+            &nbsp;&nbsp;&nbsp;
+            <button class="btn btn-info">
+                Localizar
+            </button>
+        </div>
+    </div>
+</form>
+<p>
+    <a asp-action="Create">Cadastrar Novo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescricaoCurta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsLanchePerfeito)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmEstoque)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DescricaoCurta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsLanchePerfeito)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmEstoque)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+Total de Pedidos: @Model.TotalRecordCount
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>

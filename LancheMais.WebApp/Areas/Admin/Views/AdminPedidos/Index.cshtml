@@ -1,0 +1,73 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<LancheMais.WebApp.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Listagem de Pedidos</h3>
+<form method="get" class="form-inline">
+    <div class="row">
+        <div class="col-md-2">
+            <input name="filter" class="form-control" placeholder="Pesquisa" value="@Model.RouteValue["Filter"]" style="width:200px;" />&nbsp;
+        </div>
+        <div class="col-md-10">
+            &nbsp;&nbsp;&nbsp;
+            <button class="btn btn-info">
+                Localizar
+            </button>
+        </div>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create">Novo Pedido</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedidoEnviado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedidoEntregueEm)
+            </th>
+            <th style="text-align: center;">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PedidoEnviado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PedidoEntregueEm)
+                </td>
+                <td style="vertical-align: central;">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a> |
+                    <a asp-action="PedidoLanches" asp-route-id="@item.Id">Ver Pedido</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+Total de Pedidos: @Model.TotalRecordCount
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>
